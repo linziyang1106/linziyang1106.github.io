@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>数据库理论笔记(一) | YANG</title><meta name="description" content="数据库理论笔记(一)"><meta name="keywords" content="数据库,理论"><meta name="author" content="YANG"><meta name="copyright" content="YANG"><meta name="format-detection" content="telephone=no"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@latest/css/font-awesome.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><meta http-equiv="x-dns-prefetch-control" content="on"><link rel="canonical" href="https://www.linyy.top/2019/10/08/database/"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="数据库理论笔记(一)"><meta name="twitter:description" content="数据库理论笔记(一)"><meta name="twitter:image" content="https://i.loli.net/2019/09/15/YRbNZrQ9ksydlcq.jpg"><meta property="og:type" content="article"><meta property="og:title" content="数据库理论笔记(一)"><meta property="og:url" content="https://www.linyy.top/2019/10/08/database/"><meta property="og:site_name" content="YANG"><meta property="og:description" content="数据库理论笔记(一)"><meta property="og:image" content="https://i.loli.net/2019/09/15/YRbNZrQ9ksydlcq.jpg"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link rel="prev" title="Java与SQL server 2012搭建教师管理系统" href="https://www.linyy.top/2019/10/08/javaTeacherproject/"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Titillium+Web"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"cookieDomain":"https://xxx/","msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"简"},
+  highlight_copy: 'true',
+  highlight_lang: 'true',
+  highlight_shrink: 'false',
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  bookmark: {
+    title: '添加书签',
+    message_prev: '按',
+    message_next: '键将本页加入书签'
+  },
+  runtime_unit: '天'
+
+  
+}</script></head><body><i class="fa fa-arrow-right" id="toggle-sidebar" aria-hidden="true"></i><div class="auto_open" id="sidebar"><div class="sidebar-toc"><div class="sidebar-toc__title">目录</div><div class="sidebar-toc__progress"><span class="progress-notice">你已经读了</span><span class="progress-num">0</span><span class="progress-percentage">%</span><div class="sidebar-toc__progress-bar">     </div></div><div class="sidebar-toc__content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一章"><span class="toc-number">1.</span> <span class="toc-text">第一章</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库（DB"><span class="toc-number">1.1.</span> <span class="toc-text">数据库（DB)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库管理系统（DBMS）"><span class="toc-number">1.2.</span> <span class="toc-text">数据库管理系统（DBMS）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库系统（DBS）"><span class="toc-number">1.3.</span> <span class="toc-text">数据库系统（DBS）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库系统模式结构"><span class="toc-number">1.4.</span> <span class="toc-text">数据库系统模式结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据库设计步骤"><span class="toc-number">1.5.</span> <span class="toc-text">数据库设计步骤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二章-关系模型"><span class="toc-number">2.</span> <span class="toc-text">第二章   关系模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关系的性质"><span class="toc-number">2.1.</span> <span class="toc-text">关系的性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系代数的操作"><span class="toc-number">2.2.</span> <span class="toc-text">关系代数的操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数据模型"><span class="toc-number">2.3.</span> <span class="toc-text">数据模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系数据模型"><span class="toc-number">2.4.</span> <span class="toc-text">关系数据模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系连接运算"><span class="toc-number">2.5.</span> <span class="toc-text">关系连接运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#笛卡尔积"><span class="toc-number">2.5.1.</span> <span class="toc-text">笛卡尔积</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自然连接"><span class="toc-number">2.5.2.</span> <span class="toc-text">自然连接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Theta连接"><span class="toc-number">2.5.3.</span> <span class="toc-text">Theta连接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重命名运算"><span class="toc-number">2.6.</span> <span class="toc-text">重命名运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关系上的约束"><span class="toc-number">2.7.</span> <span class="toc-text">关系上的约束</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实体完整性约束"><span class="toc-number">2.7.1.</span> <span class="toc-text">实体完整性约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参照完整性约束"><span class="toc-number">2.7.2.</span> <span class="toc-text">参照完整性约束</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三章-关系数据库设计理论"><span class="toc-number">3.</span> <span class="toc-text">第三章 关系数据库设计理论</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数依赖"><span class="toc-number">3.1.</span> <span class="toc-text">函数依赖</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#判断函数依赖"><span class="toc-number">3.1.1.</span> <span class="toc-text">判断函数依赖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数依赖推论"><span class="toc-number">3.1.2.</span> <span class="toc-text">函数依赖推论</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#关系的键"><span class="toc-number">3.1.3.</span> <span class="toc-text">关系的键</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数依赖的规则"><span class="toc-number">3.2.</span> <span class="toc-text">函数依赖的规则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#等价"><span class="toc-number">3.2.1.</span> <span class="toc-text">等价</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分解合并规则"><span class="toc-number">3.2.2.</span> <span class="toc-text">分解合并规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#传递规则"><span class="toc-number">3.2.3.</span> <span class="toc-text">传递规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三大推理公理"><span class="toc-number">3.2.4.</span> <span class="toc-text">三大推理公理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#最小基本集"><span class="toc-number">3.2.5.</span> <span class="toc-text">最小基本集</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包及作用"><span class="toc-number">3.3.</span> <span class="toc-text">闭包及作用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#属性的闭包"><span class="toc-number">3.3.1.</span> <span class="toc-text">属性的闭包</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数依赖的投影"><span class="toc-number">3.3.2.</span> <span class="toc-text">函数依赖的投影</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BC范式-BCNF"><span class="toc-number">3.4.</span> <span class="toc-text">BC范式(BCNF)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#分解BCNF"><span class="toc-number">3.4.1.</span> <span class="toc-text">分解BCNF</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#判断是否无损连接"><span class="toc-number">3.4.2.</span> <span class="toc-text">判断是否无损连接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#名词解释及简写汇总"><span class="toc-number">4.</span> <span class="toc-text">名词解释及简写汇总</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重要单词"><span class="toc-number">5.</span> <span class="toc-text">重要单词</span></a></li></ol></div></div></div><div id="content-outer"><div id="top-container" style="background-image: url(https://i.loli.net/2019/09/15/YRbNZrQ9ksydlcq.jpg)"><div id="page-header"><span class="pull-left"> <a class="blog_title" id="site-name" href="/">YANG</a></span><div class="open toggle-menu pull-right"><div class="menu-icon-first"></div><div class="menu-icon-second"></div><div class="menu-icon-third"></div></div><div class="menu_mask"></div><span class="pull-right menus"><div class="mobile_author_icon"><img class="lozad avatar_img" src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'"></div><div class="mobile_post_data"><div class="mobile_data_item text-center"><div class="mobile_data_link"><a href="/archives/"><div class="headline">文章</div><div class="length_num">8</div></a></div></div><div class="mobile_data_item text-center">      <div class="mobile_data_link"><a href="/tags/"><div class="headline">标签</div><div class="length_num">9</div></a></div></div><div class="mobile_data_item text-center">     <div class="mobile_data_link"><a href="/categories/"><div class="headline">分类</div><div class="length_num">3</div></a></div></div></div><hr><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/gallery/"><i class="fa-fw fa fa-smile-o"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/liuyan/"><i class="fa-fw fa fa-comments"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 友链</span></a></div><script>document.body.addEventListener('touchstart', function(){ });</script></div></span><span class="pull-right"></span></div><div id="post-info"><div id="post-title"><div class="posttitle">数据库理论笔记(一)</div></div><div id="post-meta"><time class="post-meta__date"><i class="fa fa-calendar" aria-hidden="true"></i> 发表于 2019-10-08<span class="post-meta__separator">|</span><i class="fa fa-history" aria-hidden="true"></i> 更新于 2019-09-26</time><span class="post-meta__separator mobile_hidden">|</span><span class="mobile_hidden"><i class="fa fa-inbox post-meta__icon" aria-hidden="true"></i><a class="post-meta__categories" href="/categories/数据库理论/">数据库理论</a></span><div class="post-meta-wordcount"><span>字数总计: </span><span class="word-count">2.3k</span><span class="post-meta__separator">|</span><span>阅读时长: 7 分钟</span><span class="post-meta__separator">|</span><span>阅读量: </span><span id="busuanzi_value_page_pv"></span></div></div></div></div><div class="layout layout_post" id="content-inner">   <article id="post"><div class="article-container" id="post-content"><h2 id="第一章"><a href="#第一章" class="headerlink" title="第一章"></a>第一章</h2><h3 id="数据库（DB"><a href="#数据库（DB" class="headerlink" title="数据库（DB)"></a>数据库（DB)</h3><ul>
+<li>从本质上讲就是信息的集合</li>
+<li>一般来说，数据库指数据库管理系统（DBMS)管理的数据的集合</li>
+</ul>
+<h3 id="数据库管理系统（DBMS）"><a href="#数据库管理系统（DBMS）" class="headerlink" title="数据库管理系统（DBMS）"></a>数据库管理系统（DBMS）</h3><blockquote>
+<p>DBMS是一种用于建立、使用和维护数据库的系统软件。</p>
+</blockquote>
+<ul>
+<li>数据定义语言（DDL）</li>
+<li>数据操作语言（DML）</li>
+<li>数据查询语言（DQL）</li>
+<li>支持大容量数据的长期存储</li>
+<li>具有持久性</li>
+<li>支持数据共享</li>
+</ul>
+<h3 id="数据库系统（DBS）"><a href="#数据库系统（DBS）" class="headerlink" title="数据库系统（DBS）"></a>数据库系统（DBS）</h3><blockquote>
+<p>数据库系统通常由软件、数据库和数据管理员组成</p>
+</blockquote>
+<ul>
+<li>数据库（DB）</li>
+<li>数据库管理系统（DBMS）</li>
+<li>数据库管理员（DBA）</li>
+<li>数据库应用程序(APP)</li>
+</ul>
+<h3 id="数据库系统模式结构"><a href="#数据库系统模式结构" class="headerlink" title="数据库系统模式结构"></a>数据库系统模式结构</h3><p>三级模式：</p>
+<ul>
+<li>模式：全体数据的逻辑结构和特征描述</li>
+<li>外模式：局部数据的逻辑结构和特征描述</li>
+<li>内模式：数据物理结构和存储方式的描述</li>
+</ul>
+<p>二层映射：</p>
+<ul>
+<li>外模式/模式映射：用来定义外模式与模式之间的对应关系，由于外模式有多个，而模式只有一个，因此，对每个外模式都有一个与之对应的外模式/模式映射</li>
+<li>模式/内模式映射：用来定义模式与内模式之间的对应关系（保证数据的物理独立性</li>
+</ul>
+<h3 id="数据库设计步骤"><a href="#数据库设计步骤" class="headerlink" title="数据库设计步骤"></a>数据库设计步骤</h3><ul>
+<li>需求收集和分析</li>
+<li>概念结构设计</li>
+<li>逻辑结构设计</li>
+<li>物理结构设计</li>
+<li>物理实现</li>
+<li>数据库运行和维护</li>
+</ul>
+<img data-src="https://i.loli.net/2019/09/18/OEQYpAZelosh2Mm.png" class="lozad">
+
+<h2 id="第二章-关系模型"><a href="#第二章-关系模型" class="headerlink" title="第二章   关系模型"></a>第二章   关系模型</h2><h3 id="关系的性质"><a href="#关系的性质" class="headerlink" title="关系的性质"></a>关系的性质</h3><ul>
+<li>不能出现相同的行(即不能出现相同的元组)</li>
+<li>不能出现相同的列名</li>
+<li>列是不可分割的最小数据项</li>
+<li>可以任意交换两行列的顺序</li>
+<li>每一列的数据类型和取值范围必须一致</li>
+</ul>
+<h3 id="关系代数的操作"><a href="#关系代数的操作" class="headerlink" title="关系代数的操作"></a>关系代数的操作</h3><blockquote>
+<p>并、交、差、选择、投影、乘、重命名</p>
+</blockquote>
+<img style="zoom:75%;" data-src="https://i.loli.net/2019/09/18/KiPjFYnC9SABaQ5.png" class="lozad">
+
+<h3 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h3><p>数据模型是现实世界数据特征的抽象，它的三个要素是</p>
+<ol>
+<li>数据结构——用于描述数据库对象的静态特性，包括数据的类型、内容、性质及数据之间的联系等。</li>
+<li>数据操作——用于描述数据库对象的动态特性，包括数据的插入、修改和查询等。</li>
+<li>数据的约束条件——实际上是一组完整性规则的集合，保证数据的正确、有效和相容。</li>
+</ol>
+<blockquote>
+<p>常用的数据模型：层次模型、网状模型和关系模型。</p>
+</blockquote>
+<h3 id="关系数据模型"><a href="#关系数据模型" class="headerlink" title="关系数据模型"></a>关系数据模型</h3><ul>
+<li>关系：数据以一张二维表格描述</li>
+<li>属性：关系的列，是关系特征的描述</li>
+<li>模式：关系名与其属性的集合。movies(title,year,lenth,genre)</li>
+<li>元组：除属性行外，关系的每一行对应一个元组。</li>
+<li>域：属性的数据类型及取值范围。</li>
+</ul>
+<h3 id="关系连接运算"><a href="#关系连接运算" class="headerlink" title="关系连接运算"></a>关系连接运算</h3><h4 id="笛卡尔积"><a href="#笛卡尔积" class="headerlink" title="笛卡尔积"></a>笛卡尔积</h4><p>R和S的乘运算——R×S</p>
+<p><img alt data-src="https://i.loli.net/2019/09/18/iRhkIFgbC2pL7Bc.png" class="lozad"></p>
+<h4 id="自然连接"><a href="#自然连接" class="headerlink" title="自然连接"></a>自然连接</h4><p>用的最多</p>
+<p><img alt data-src="https://i.loli.net/2019/09/18/1afsUxuZMlPOX56.png" class="lozad"></p>
+<h4 id="Theta连接"><a href="#Theta连接" class="headerlink" title="Theta连接"></a>Theta连接</h4><ol>
+<li>先得到R和S的笛卡尔积</li>
+<li>在得到的关系中寻找满足条件c的元组</li>
+<li>新关系中包含R和S的所有属性</li>
+</ol>
+<p><img alt data-src="https://i.loli.net/2019/09/18/tEHDzBF1agjX9ZM.png" class="lozad"></p>
+<h3 id="重命名运算"><a href="#重命名运算" class="headerlink" title="重命名运算"></a>重命名运算</h3><p><img alt data-src="https://i.loli.net/2019/09/21/d3FECXyp1fmLAIk.png" class="lozad"></p>
+<h3 id="关系上的约束"><a href="#关系上的约束" class="headerlink" title="关系上的约束"></a>关系上的约束</h3><h4 id="实体完整性约束"><a href="#实体完整性约束" class="headerlink" title="实体完整性约束"></a>实体完整性约束</h4><ul>
+<li><strong>键(也称码)</strong> ：关系中的某一属性或属性组的值能唯一标识一个元组，则称该属性或属性组为关系的键。</li>
+<li><strong>候选键</strong>：若一个关系中存在多个键，这些键统称为候选键，从候选键中选一个键作为关系的键，这个键被称为<strong>主键</strong></li>
+<li><strong>主属性</strong>：候选键中的属性统称为主属性。</li>
+</ul>
+<h4 id="参照完整性约束"><a href="#参照完整性约束" class="headerlink" title="参照完整性约束"></a>参照完整性约束</h4><p><strong>外键</strong>：也称外码与参照关系</p>
+<blockquote>
+<p>设F是关系R的一个或一组属性，但不是关系R的主键。如果F与关系S的键KS相对应（即实际意义相同），则</p>
+</blockquote>
+<ul>
+<li>称F是关系R的外键</li>
+<li>称关系R为参照关系</li>
+<li>称关系S为被参照关系</li>
+</ul>
+<p><img alt data-src="https://i.loli.net/2019/09/22/zRPB9Cq1rVWfKpc.png" class="lozad"></p>
+<p>prooducerC#的取值需要参照cert#的取值。</p>
+<p>参照完整性规则</p>
+<p>若属性（或属性组）F是关系R的外键，它与基本关系S的主码KS相对应，则对于R中的每个元组再F上的值必须满足：</p>
+<ul>
+<li>或者取空值（F的每个属性均为空值）</li>
+<li>或者等于S中的某个元组的主键值</li>
+</ul>
+<p><img alt data-src="https://i.loli.net/2019/09/22/K7Dp4PJxa63LC9j.png" class="lozad"></p>
+<p>自定义完整性</p>
+<p>是针对某一具体要求来定义的约束条件，它反映某一具体应用所涉及的数据必须满足的语义要求。</p>
+<p><img alt data-src="https://i.loli.net/2019/09/22/xmp94rwgT1Y2kld.jpg" class="lozad"></p>
+<p>执行插入操作</p>
+<blockquote>
+<p><strong>先检查实体完整性规则</strong>：插入行主键上的值再关系中是否已经存在。若不存在，执行插入操作；否则拒绝插入。</p>
+<p><strong>再检查参照完整性规则</strong>：向参照关系插入时，插入行在外键上的值是否已经在被参照关系的主键值中存在。若存在，执行插入操作；否则拒绝插入，或将插入行在外码上的值改为空值后再执行插入操作。</p>
+<p><strong>最后检查自定义完整性规则</strong>：检查被插入的关系中是否有用户定义完整性规则，如果有，检查插入行再相应属性上的值是否符合用户定义完整性规则。若符合，可以执行插入操作；否则不可以。</p>
+</blockquote>
+<p>执行删除操作，一般只需要检查参照完整性规则。</p>
+<blockquote>
+<ul>
+<li><p>如果是删除参照关系中的行，直接删除。</p>
+</li>
+<li><p>如果是被删除参照关系中的行且该行没有被引用，直接删除。</p>
+</li>
+<li><p>如果是被删除参照关系中的行且该行被引用，有三种操作：</p>
+</li>
+</ul>
+<blockquote>
+<ul>
+<li>不可以执行删除操作（拒绝删除）</li>
+<li>或将参照关系中相应行在外键属性上的值改为空值后再执行删除操作（空值删除）</li>
+<li>或将参照关系中相应行一起删除(级联删除)</li>
+</ul>
+</blockquote>
+</blockquote>
+<p>执行修改操作时，因为修改操作可看成先执行删除操作，再执行插入操作，因此是上述两种情况的综合。</p>
+<h2 id="第三章-关系数据库设计理论"><a href="#第三章-关系数据库设计理论" class="headerlink" title="第三章 关系数据库设计理论"></a>第三章 关系数据库设计理论</h2><h3 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h3><blockquote>
+<p><strong>定义</strong>：如果关系R的两个元组在属性A1，A2……，An上的值相同，那么他们必定在其他属性B1，B2……，Bm上的值也相同。[A决定B，或者B依赖于A]</p>
+</blockquote>
+<h4 id="判断函数依赖"><a href="#判断函数依赖" class="headerlink" title="判断函数依赖"></a>判断函数依赖</h4><p><img alt data-src="https://i.loli.net/2019/09/22/n5CulAqWXM3YIVe.jpg" class="lozad"></p>
+<h4 id="函数依赖推论"><a href="#函数依赖推论" class="headerlink" title="函数依赖推论"></a>函数依赖推论</h4><ol>
+<li>如果 C → B   C → A ;那么C → AB成立</li>
+<li>C → ABC也成立</li>
+</ol>
+<h4 id="关系的键"><a href="#关系的键" class="headerlink" title="关系的键"></a>关系的键</h4><p><img alt data-src="https://i.loli.net/2019/09/22/zWL5MVZpE48DrP6.jpg" class="lozad"></p>
+<p><img alt data-src="https://i.loli.net/2019/09/22/X9FVHLcpE4QenD7.jpg" class="lozad"></p>
+<h3 id="函数依赖的规则"><a href="#函数依赖的规则" class="headerlink" title="函数依赖的规则"></a>函数依赖的规则</h3><ol>
+<li>平凡函数依赖：B→C，且C是B的子集 ，则称B→C是<strong>平凡</strong>的函数依赖。</li>
+<li>非平凡函数依赖：A→B，且A与B有一部分属性重合。</li>
+<li>完全非平凡的函数依赖：A→C，且A与C没有属性重合。</li>
+</ol>
+<h4 id="等价"><a href="#等价" class="headerlink" title="等价"></a>等价</h4><p>T={A→B}，S={A→B1,A→B2}，则称T与S等价</p>
+<h4 id="分解合并规则"><a href="#分解合并规则" class="headerlink" title="分解合并规则"></a>分解合并规则</h4><p>A1A2A3……An→B1B2B3……Bn（合并）</p>
+<p>A1A2A3……An→B1</p>
+<p>A1A2A3……An→B2</p>
+<p>A1A2A3……An→B3</p>
+<p>……</p>
+<p>A1A2A3……An→Bn（分解）</p>
+<h4 id="传递规则"><a href="#传递规则" class="headerlink" title="传递规则"></a>传递规则</h4><p>A→B，B→C，则A→C</p>
+<h4 id="三大推理公理"><a href="#三大推理公理" class="headerlink" title="三大推理公理"></a>三大推理公理</h4><p><img alt data-src="https://i.loli.net/2019/09/25/VKgACn5kmiY3heR.jpg" class="lozad"></p>
+<h4 id="最小基本集"><a href="#最小基本集" class="headerlink" title="最小基本集"></a>最小基本集</h4><ul>
+<li>给定一个FD集合S，与S等价的任何FD集合都称为S的<strong>基本集</strong>。</li>
+<li>如果B是基本集且满足以下三个条件，则称B为<strong>最小基本集（简称最小集）</strong><ol>
+<li>B中所有FD的右边都是单一属性</li>
+<li>从B中任何一个FD中删除左边的一个属性或多个属性，B不再是基本集（不存在平凡依赖）</li>
+<li>从B中删除任何一个FD，B不再是基本集</li>
+</ol>
+</li>
+<li>一个关系可能存在多个最小基本集</li>
+</ul>
+<p><img alt data-src="https://i.loli.net/2019/09/25/rzg1bqufEI3tRam.jpg" class="lozad"></p>
+<p>找最小基本集步骤</p>
+<p><img alt data-src="https://i.loli.net/2019/09/25/ukQeJ9WMGhnxvpy.jpg" class="lozad"></p>
+<h3 id="闭包及作用"><a href="#闭包及作用" class="headerlink" title="闭包及作用"></a>闭包及作用</h3><h4 id="属性的闭包"><a href="#属性的闭包" class="headerlink" title="属性的闭包"></a>属性的闭包</h4><p>作用是求关系R的键和超键</p>
+<p><img alt data-src="https://i.loli.net/2019/09/25/tzWASYCTvbi1Jof.jpg" class="lozad"></p>
+<h4 id="函数依赖的投影"><a href="#函数依赖的投影" class="headerlink" title="函数依赖的投影"></a>函数依赖的投影</h4><h3 id="BC范式-BCNF"><a href="#BC范式-BCNF" class="headerlink" title="BC范式(BCNF)"></a>BC范式(BCNF)</h3><blockquote>
+<p>关系模式R是BCNF的充要条件：每个非平凡FD的左边必定是超键</p>
+</blockquote>
+<p>任意一个二元关系是BCNF么？（是）</p>
+<p>假设关系R的两个属性分别是A,B，分四种情况讨论。</p>
+<ol>
+<li><p><strong>不存在非平凡的FD</strong></p>
+<p>BCNF的条件是针对非平凡FD的，所以关系模式R是BCNF。</p>
+</li>
+<li><p><strong>A→B成立，但B→A不成立</strong></p>
+<p>A→B是非平凡FD，A是键，同时也是超键，符合BCNF条件。</p>
+</li>
+<li><p><strong>B→A成立，但A→B不成立</strong></p>
+<p>B→A是非平凡FD，B是键，同时也是超键，符合BCNF条件。</p>
+</li>
+<li><p><strong>A→B且B→A成立</strong></p>
+<p>A→B、B→A都是非平凡FD，A,B都是键同时也是超键，符合BCNF条件</p>
+</li>
+</ol>
+<h4 id="分解BCNF"><a href="#分解BCNF" class="headerlink" title="分解BCNF"></a>分解BCNF</h4><p><img alt data-src="https://i.loli.net/2019/09/26/gw4yxXEDmkbqU2e.jpg" class="lozad"></p>
+<h4 id="判断是否无损连接"><a href="#判断是否无损连接" class="headerlink" title="判断是否无损连接"></a>判断是否无损连接</h4><p>表格法</p>
+<h2 id="名词解释及简写汇总"><a href="#名词解释及简写汇总" class="headerlink" title="名词解释及简写汇总"></a>名词解释及简写汇总</h2><ul>
+<li>数据库——databse——DB</li>
+<li>数据库管理系统——datbase management system——DBMS</li>
+<li>数据库管理员——database administrator——DBA</li>
+<li>数据库应用程序——database application——APP</li>
+<li>数据定义语言——data-definition language——DDL</li>
+<li>数据操作语言——data-manipulation language——DML</li>
+<li>数据查询语言——data-query language——DQL</li>
+</ul>
+<h2 id="重要单词"><a href="#重要单词" class="headerlink" title="重要单词"></a>重要单词</h2><blockquote>
+<p>atomicity 原子性<br> isolation 独立性<br> durability 持久性<br> consistency 一致性<br> tuples 元组<br> attributes 属性<br> domains 域<br> index  索引<br> buffer 缓冲区<br> union 并<br> intersection 交<br> difference 差<br> selection 选择<br> projection 投影<br> reflexivity 自反<br> augmentation 自增<br> transitivity 传递<br> redundancy 冗余<br> anomalies 异常<br> decomposing 分解  </p>
+</blockquote>
+</div></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">YANG</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://www.linyy.top/2019/10/08/database/">https://www.linyy.top/2019/10/08/database/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://www.linyy.top">YANG</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/数据库/">数据库    </a><a class="post-meta__tags" href="/tags/理论/">理论    </a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2019/09/15/YRbNZrQ9ksydlcq.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script></div></div><div class="post-reward"><a class="reward-buttom"><i class="fa fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><img class="lozad post-qr-code__img" src="/img/wechat.jpg"><div class="post-qr-code__desc">微信</div></li><li class="reward-item"><img class="lozad post-qr-code__img" src="/img/alipay.jpg"><div class="post-qr-code__desc">支付寶</div></li></ul></div></a></div><nav class="pagination_post" id="pagination"><div class="prev-post pull-full"><a href="/2019/10/08/javaTeacherproject/"><img class="prev_cover lozad" data-src="https://i.loli.net/2019/09/14/uQEK2PFhZH9qgBL.png" onerror="onerror=null;src='/img/404.jpg'"><div class="label">上一篇</div><div class="prev_info"><span>Java与SQL server 2012搭建教师管理系统</span></div></a></div></nav><hr><div id="post-comment"><div class="comment_headling"><i class="fa fa-comments fa-fw" aria-hidden="true"></i><span> 评论</span></div><div class="vcomment" id="vcomment"></div><script src="https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js"></script><script>var notify = false == true ? true : false;
+var verify = false == true ? true : false;
+var GUEST_INFO = ['nick','mail','link'];
+var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+  return GUEST_INFO.indexOf(item) > -1
+});
+guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+
+window.valine = new Valine({
+  el:'#vcomment',
+  notify:notify,
+  verify:verify,
+  appId:'mJU6x5AUI1PpkyqjwT7VBmTa-gzGzoHsz',
+  appKey:'O8fqvOODJaIUHwRBHU54fyJC',
+  placeholder:'Please leave your footprints',
+  avatar:'robohash',
+  guest_info:guest_info,
+  pageSize:'10',
+  lang:'en',
+  recordIP: true
+});</script></div></div></div><footer style="background-image: url(https://i.loli.net/2019/09/15/YRbNZrQ9ksydlcq.jpg)"><div id="footer"><div class="copyright">&copy;2019 By YANG</div><div class="framework-info"><span>驱动 </span><a href="http://hexo.io"><span>Hexo</span></a><span class="footer-separator">|</span><span>主题 </span><a href="https://github.com/jerryc127/hexo-theme-butterfly"><span>Butterfly</span></a></div><div class="footer_custom_text">ありがとう</div></div></footer><i class="fa fa-arrow-up" id="go-up" aria-hidden="true"></i><section class="rightside" id="rightside"><a id="to_comment" href="#post-comment"><i class="scroll_to_comment fa fa-comments"></i></a><i class="fa fa-book" id="readmode" title="阅读模式"> </i><i class="fa fa-plus" id="font_plus" title="放大字体"></i><i class="fa fa-minus" id="font_minus" title="缩小字体"></i><a class="translate_chn_to_cht" id="translateLink" href="javascript:translatePage();" title="简繁转换">繁</a><i class="nightshift fa fa-moon-o" id="nightshift" title="夜间模式"></i></section><div class=" " id="post_bottom"><div id="post_bottom_items"><a id="mobile_to_comment" href="#post-comment"><i class="mobile_scroll_to_comment fa fa-comments"></i></a><i class="fa fa-list" id="mobile_toc"></i><div id="toc_mobile"><div class="toc_mobile_headline">目录</div><ol class="toc_mobile_items"><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#第一章"><span class="toc_mobile_items-number">1.</span> <span class="toc_mobile_items-text">第一章</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据库（DB"><span class="toc_mobile_items-number">1.1.</span> <span class="toc_mobile_items-text">数据库（DB)</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据库管理系统（DBMS）"><span class="toc_mobile_items-number">1.2.</span> <span class="toc_mobile_items-text">数据库管理系统（DBMS）</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据库系统（DBS）"><span class="toc_mobile_items-number">1.3.</span> <span class="toc_mobile_items-text">数据库系统（DBS）</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据库系统模式结构"><span class="toc_mobile_items-number">1.4.</span> <span class="toc_mobile_items-text">数据库系统模式结构</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据库设计步骤"><span class="toc_mobile_items-number">1.5.</span> <span class="toc_mobile_items-text">数据库设计步骤</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#第二章-关系模型"><span class="toc_mobile_items-number">2.</span> <span class="toc_mobile_items-text">第二章   关系模型</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关系的性质"><span class="toc_mobile_items-number">2.1.</span> <span class="toc_mobile_items-text">关系的性质</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关系代数的操作"><span class="toc_mobile_items-number">2.2.</span> <span class="toc_mobile_items-text">关系代数的操作</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#数据模型"><span class="toc_mobile_items-number">2.3.</span> <span class="toc_mobile_items-text">数据模型</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关系数据模型"><span class="toc_mobile_items-number">2.4.</span> <span class="toc_mobile_items-text">关系数据模型</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关系连接运算"><span class="toc_mobile_items-number">2.5.</span> <span class="toc_mobile_items-text">关系连接运算</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#笛卡尔积"><span class="toc_mobile_items-number">2.5.1.</span> <span class="toc_mobile_items-text">笛卡尔积</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#自然连接"><span class="toc_mobile_items-number">2.5.2.</span> <span class="toc_mobile_items-text">自然连接</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#Theta连接"><span class="toc_mobile_items-number">2.5.3.</span> <span class="toc_mobile_items-text">Theta连接</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#重命名运算"><span class="toc_mobile_items-number">2.6.</span> <span class="toc_mobile_items-text">重命名运算</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#关系上的约束"><span class="toc_mobile_items-number">2.7.</span> <span class="toc_mobile_items-text">关系上的约束</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#实体完整性约束"><span class="toc_mobile_items-number">2.7.1.</span> <span class="toc_mobile_items-text">实体完整性约束</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#参照完整性约束"><span class="toc_mobile_items-number">2.7.2.</span> <span class="toc_mobile_items-text">参照完整性约束</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#第三章-关系数据库设计理论"><span class="toc_mobile_items-number">3.</span> <span class="toc_mobile_items-text">第三章 关系数据库设计理论</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#函数依赖"><span class="toc_mobile_items-number">3.1.</span> <span class="toc_mobile_items-text">函数依赖</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#判断函数依赖"><span class="toc_mobile_items-number">3.1.1.</span> <span class="toc_mobile_items-text">判断函数依赖</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#函数依赖推论"><span class="toc_mobile_items-number">3.1.2.</span> <span class="toc_mobile_items-text">函数依赖推论</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#关系的键"><span class="toc_mobile_items-number">3.1.3.</span> <span class="toc_mobile_items-text">关系的键</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#函数依赖的规则"><span class="toc_mobile_items-number">3.2.</span> <span class="toc_mobile_items-text">函数依赖的规则</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#等价"><span class="toc_mobile_items-number">3.2.1.</span> <span class="toc_mobile_items-text">等价</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#分解合并规则"><span class="toc_mobile_items-number">3.2.2.</span> <span class="toc_mobile_items-text">分解合并规则</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#传递规则"><span class="toc_mobile_items-number">3.2.3.</span> <span class="toc_mobile_items-text">传递规则</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#三大推理公理"><span class="toc_mobile_items-number">3.2.4.</span> <span class="toc_mobile_items-text">三大推理公理</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#最小基本集"><span class="toc_mobile_items-number">3.2.5.</span> <span class="toc_mobile_items-text">最小基本集</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#闭包及作用"><span class="toc_mobile_items-number">3.3.</span> <span class="toc_mobile_items-text">闭包及作用</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#属性的闭包"><span class="toc_mobile_items-number">3.3.1.</span> <span class="toc_mobile_items-text">属性的闭包</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#函数依赖的投影"><span class="toc_mobile_items-number">3.3.2.</span> <span class="toc_mobile_items-text">函数依赖的投影</span></a></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-3"><a class="toc_mobile_items-link" href="#BC范式-BCNF"><span class="toc_mobile_items-number">3.4.</span> <span class="toc_mobile_items-text">BC范式(BCNF)</span></a><ol class="toc_mobile_items-child"><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#分解BCNF"><span class="toc_mobile_items-number">3.4.1.</span> <span class="toc_mobile_items-text">分解BCNF</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-4"><a class="toc_mobile_items-link" href="#判断是否无损连接"><span class="toc_mobile_items-number">3.4.2.</span> <span class="toc_mobile_items-text">判断是否无损连接</span></a></li></ol></li></ol></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#名词解释及简写汇总"><span class="toc_mobile_items-number">4.</span> <span class="toc_mobile_items-text">名词解释及简写汇总</span></a></li><li class="toc_mobile_items-item toc_mobile_items-level-2"><a class="toc_mobile_items-link" href="#重要单词"><span class="toc_mobile_items-number">5.</span> <span class="toc_mobile_items-text">重要单词</span></a></li></ol></div></div></div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/nightshift.js"></script><script id="ribbon" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN@latest/js/piao.js"></script><script color="0,0,255" opacity="0.7" zindex="-1" count="99" src="https://cdn.jsdelivr.net/gh/jerryc127/CDN/js/canvas-nest.js"></script><script src="/js/activate-power-mode.js"></script><script>POWERMODE.colorful = true; // make power mode colorful
+POWERMODE.shake = true; // turn off shake
+document.body.addEventListener('input', POWERMODE);
+</script><script src="/js/tw_cn.js"></script><script>translateInitilization()
+
+</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page@1.2.2/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script><script>const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+observer.observe();</script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"22.2017.school"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
