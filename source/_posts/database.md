@@ -1,5 +1,6 @@
 ---
 title: 数据库理论笔记(一)
+date: 2019-9-2 17:16:36
 cover: https://i.loli.net/2019/09/15/YRbNZrQ9ksydlcq.jpg
 categories: 数据库理论
 tags:

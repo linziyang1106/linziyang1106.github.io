@@ -1,5 +1,6 @@
 ---
 title: 851冲冲冲
+date: 2019-9-27 17:16:36
 cover: https://i.loli.net/2019/09/17/ZdHY5ATLrIvJNgq.jpg
 categories: 生活
 tags:
@@ -22,7 +23,7 @@ tags:
 **一、复试科目及参考书目**
 
 ​    综合面试和C++机试。
- 
+
  
 
 **二、同等学力加试科目及参考书目**

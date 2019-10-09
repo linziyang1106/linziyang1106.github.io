@@ -1,5 +1,6 @@
 ---
 title: 写给现在的自己
+date: 2019-9-1 17:16:36
 cover: https://i.loli.net/2019/09/15/OyAxYbKegSN9P3G.jpg
 categories: 生活
 

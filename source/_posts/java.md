@@ -1,6 +1,6 @@
 ---
 title: C++语言入门
-date: 2019-9-30 17:16:36
+date: 2019-9-29 17:16:36
 categories: 编程语言
 tags:
    - C++
@@ -304,4 +304,76 @@ do{
 ### 数组、指针
 
 #### 数组
+
+```c++
+//数组查找
+#include <iostream>
+using namespace std;
+int main()
+{
+    int nums[] = {8,4,2,1,23,344,12};
+    int numslen = sizeof(nums) / sizeof(int); //数组长度
+    int searchNum;        //用户要查找的数字
+    int searchIndex = -1; //用户查找数字的下标
+    cout <<"请输入要查找的数字";
+    cin >> searchNum;
+    for(int i = 0; i<numslen; i++)
+    {
+        if(nums[i] == searchNum)
+        {
+            searchIndex = i;
+            break;
+        }
+    }
+   
+    cout <<"下标为"<<searchIndex;
+}
+```
+
+```c++
+//数组奇数偶数
+#include <iostream>
+using namespace std;
+int main()
+{
+    int nums[] = {8,4,2,1,23,344,12};
+    int numslen = sizeof(nums) / sizeof(int);
+    int Jcount = 0, Ocount = 0;
+    for(int i = 0; i < numslen; i++)
+    {
+        if(nums[i] % 2 == 0)
+        {
+            Ocount++;
+        }
+        else
+        {
+            Jcount++;
+        }
+        
+    }
+    cout <<"奇数个数是"<< Jcount <<"偶数个数是"<< Ocount << endl;
+
+}
+```
+
+```c++
+ //动态地从键盘录入信息并赋值
+#include <iostream>
+using namespace std;
+int main()
+{
+    const int N = 5;
+    double scores[N];
+    for(int i = 0; i < N; i++)
+    {
+        cout <<"请输入第"<< (i+1) <<"门课的成绩：";
+        cin >> scores[i];
+    }
+    for(int i = 0; i < N; i++)
+    {
+        cout <<"第"<< (i+1) <<"门课的成绩："<<scores[i]<<endl;
+    }
+
+}
+```
 
