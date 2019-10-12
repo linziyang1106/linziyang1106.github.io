@@ -377,3 +377,82 @@ int main()
 }
 ```
 
+#### 冒泡排序(升序)
+
+```c++
+for (int j = 0; j < a.length - 1; j++) {
+            for (int i = 0; i < a.length - 1 - j; i++) {
+                if (a[i] > a[i + 1]) {
+                    // change
+                    temp = a[i + 1];
+                    a[i + 1] = a[i];
+                    a[i] = temp;
+                }
+            }
+}
+```
+
+#### 选择排序(升序)
+
+```c++
+for (int j = 0; j <length- 1;j++) {
+            for (int i = j; i < length- 1; i++) {
+                if (a[j] > a[i + 1]) {
+                    // change
+                    temp = a[j];
+                    a[j] = a[i + 1];
+                    a[i + 1] = temp;
+                }
+            }
+}
+```
+
+#### 数组的删除和插入
+
+
+
+#### 二维数组
+
+```c++
+//
+// Created by Administrator on 2019-10-12.
+//
+#include <iostream>
+using namespace std;
+int main()
+{
+    string stuName[] = {"林子洋","马云","lin"};
+    string courseName[] = {"语文","数学","英语"};
+    const int ROW = 3;
+    const int COL = 3;
+
+    double score[ROW][COL];
+
+    for(int i = 0; i < ROW; i++) // 外层循环控制学生
+    {
+        for(int j = 0; j < COL; j++) //内层循环控制课程
+        {
+            cout << stuName[i] <<"的"<<courseName[j]<<"成绩"<<endl;
+            cin >> score[i][j];
+        }
+    }
+    //打印结果
+    cout <<"\t";
+    for(int i = 0; i < COL; i++)
+    {
+        cout << courseName[i]<<"\t";
+    }
+    cout << endl;
+    for(int i = 0; i < ROW; i++)
+    {
+        cout << stuName[i] <<"\t";
+        for(int j = 0;j <COL; j++)
+            {cout << score[i][j] <<"\t";}
+        cout << endl;
+    }
+    
+    system("pause");
+}
+
+```
+
