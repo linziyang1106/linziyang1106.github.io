@@ -456,3 +456,70 @@ int main()
 
 ```
 
+#### 指针
+
+```c++
+// * 读地址   &取地址
+// 空指针：不指向任何对象，在
+int *ptr1 = nullptr; //等价于int *ptr1 = 0;
+int *ptr2 = 0;       //直接将ptr2初始化为字面常量0
+```
+
+void *指针
+
+```c++
+    double num = 3.14;
+    double *ptr_num1 = &num;
+    void *ptr_num2 = &num;
+    cout << boolalpha; // 打印bool类型
+    cout << (ptr_num1 == ptr_num2) <<endl;
+```
+
+void *指针存放一个内存地址，地址指向的内容是什么类型不能确定。
+
+一般用来拿来和别的指针比较、作为函数的输入和输出；赋值给另一个void *指针
+
+#### 引用
+
+```c++
+int int_value = 1024;
+//refValue指向int_value,是int_value的另一个名字
+int& refValue = int_value;
+//错误:引用必须被初始化
+int& refValue2;
+```
+
+1. 引用并非对象，只是为一个已经存在的对象起的别名
+
+2. 引用只能绑定在对象上，不能与字面值或某个表达式的计算结果绑定在一起。
+
+   ```c++
+   int &ref_value = 10;//错误
+   ```
+
+3. yin===引用必须初始化，所以使用引用之前不需要测试其有效性，因此使用引用可能会比使用指针效率高。
+
+引用和指针的关系
+
+> 引用对指针进行了简单封装，底层仍然是指针
+>
+> 获取引用地址时，编译器会进行内部转换
+
+```c++
+int num = 108;
+int& rel_num = num;
+rel_num = 118;
+cout << &num <<"\t"<< &rel_num<< endl;
+```
+
+相当于
+
+```c++
+int num = 108;
+int* rel_num = &num;
+*rel_num = 118;
+cout << &num << "\t" << rel_num << endl;
+```
+
+#### 指针与数组
+
