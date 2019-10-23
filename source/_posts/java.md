@@ -497,7 +497,7 @@ int& refValue2;
    int &ref_value = 10;//错误
    ```
 
-3. yin===引用必须初始化，所以使用引用之前不需要测试其有效性，因此使用引用可能会比使用指针效率高。
+3. 引用必须初始化，所以使用引用之前不需要测试其有效性，因此使用引用可能会比使用指针效率高。
 
 引用和指针的关系
 
@@ -521,5 +521,165 @@ int* rel_num = &num;
 cout << &num << "\t" << rel_num << endl;
 ```
 
+#### 使用引用参数
+
+```c++
+#include <iostream>
+using namespace std;
+void Swap1(int num1, int num2)
+{
+    int temp;
+    temp = num1; num1 = num2; num2 = temp;
+    cout << num1 << "\t" << num2 << endl;
+}
+
+void Swap2(int *p1, int *p2)
+{
+    int temp;
+    temp = *p1; 
+    *p1 = *p2; 
+    *p2 = temp;
+}
+
+void Swap3(int &ref1,int &ref2)
+{
+    int temp;
+    temp = ref1;
+    ref1 = ref2;
+    ref2 = temp;
+}
+int main()
+{
+    int num1 = 10, num2 = 5;
+    Swap1(num1,num2);
+    cout << "执行Swap1之后："<< num1 << "\t" << num2 << endl;
+    Swap2(&num1, &num2);
+    cout << "执行Swap2之后："<< num1 << "\t" << num2 << endl;
+    Swap3(num1, num2);
+    cout << "执行Swap3之后："<< num1 << "\t" << num2 << endl;
+}
+```
+
+使用引用的理由
+
+1. 可以更加简便地书写代码
+2. 可以直接传递某个对象，而不只是把对象复制一份
+
 #### 指针与数组
+
+### 内联函数（inline）
+
+是C++为提高程序运行速度所做的一项改进，与常规函数的区别不在于编写方式，**而在于被调用时的运行机制不同；编译器使用函数代码替换函数调用**，速度快，效率高
+
++ 常规函数是通过函数的地址来寻找运行
++ inline是直接把函数内容复制过来
+
+使用建议：如果执行函数代码的时间比处理函数调用机制的时间长，则节省的时间只占整个过程的很小一部分；
+
+> 如果**代码执行时间很短**，内联调用就可以节省大部分时间
+
+### 函数重载
+
++ 指可以用多个同名的函数
++ 函数名相同，参数列表不同（特征标不同）
+
+```c++
+void eating(string food){
+    //相当于 eating_string
+}
+void eating(int food){
+    //相当于 eating_int
+}
+```
+
+举例
+
+```c++
+//使用重载实现数组的排序
+#include <iostream>
+using namespace std;
+//int inums[] = {56,54,12,89,43}
+//float fnums[] = {78.0f, 5.7f, 42.8f, 99.1f}
+//double dnums[] = {78.9, 23.6, 77.8, 98.5, 33.3}
+void Sort(int[],int len);
+void Sort(float[],int len);   //重载：函数名相同，参数名不同
+void Sort(double[],int len);
+
+void Sort(int nums[],int len)
+{
+    int temp;
+    
+    for(int i = 0; i < len - 1; i++)
+    {
+        for(int j = 0; j < len - i - 1; j++)
+        {
+            if(nums[j] > nums[j+1])
+            {
+                temp = nums[j];
+                nums[j] = nums[j+1];
+                nums[j+1] = temp;
+            }
+        }
+    }
+}
+void Sort(float nums[],int len)
+{
+    int temp;
+    for(int i = 0; i < len - 1; i++)
+    {
+        for(int j = 0; j < len - i - 1; j++)
+        {
+            if(nums[j] > nums[j+1])
+            {
+                temp = nums[j];
+                nums[j] = nums[j+1];
+                nums[j+1] = temp;
+            }
+        }
+    }
+}
+void Sort(double nums[],int len)
+{
+    int temp;
+    for(int i = 0; i < len - 1; i++)
+    {
+        for(int j = 0; j < len - i - 1; j++)
+        {
+            if(nums[j] > nums[j+1])
+            {
+                temp = nums[j];
+                nums[j] = nums[j+1];
+                nums[j+1] = temp;
+            }
+        }
+    }
+}
+//输出排序前数组
+void li(int nums[], int len)
+{
+    cout<< "排序前:";
+    for(int i = 0; i < len; i++){
+        cout << nums[i] << ", ";
+    }
+    cout << endl;
+}
+//输出排序后数组
+void Show(int nums[], int len)
+{
+    cout<< "排序后:";
+    for(int i = 0; i < len; i++){
+        cout << nums[i] << ", ";
+    }
+    cout << endl;
+}
+int main()
+{
+    int inums[] = {56,54,12,89,43};
+    float fnums[] = {78.0f, 5.7f, 42.8f, 99.1f};
+    double dnums[] = {78.9, 23.6, 77.8, 98.5, 33.3};
+    li(inums,sizeof(inums) / sizeof(int));
+    Sort(inums,sizeof(inums) / sizeof(int));
+    Show(inums,sizeof(inums) / sizeof(int));
+}
+```
 
